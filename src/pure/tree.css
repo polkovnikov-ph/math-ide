@@ -1,0 +1,39 @@
+.tree-node {
+    flex: 1 1 auto;
+}
+
+.tree-node__row {
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+}
+
+.tree-node__chevron {
+    flex: 0 0 auto;
+    display: block;
+    padding: 7px;
+    transform: rotate(90deg);
+    transition: transform 0.1s linear;
+}
+.tree-node__chevron._is-open {
+    transform: rotate(180deg);
+}
+.tree-node__chevron._is-empty {
+    visibility: hidden;
+}
+
+.tree-node__text {
+    flex: 1 1 auto;
+    line-height: 24px;
+}
+
+.tree-node__children {
+
+}
+.tree-node__children._is-closed {
+    display: none;
+}
+
+.forest {
+    flex: 1 1 auto;
+}

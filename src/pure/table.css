@@ -1,0 +1,18 @@
+.table {
+    flex: 1 1 auto;
+}
+
+.table__row {
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+}
+
+.table__key {
+    flex: 0 0 auto;
+    width: 100px;
+}
+
+.table__value {
+    flex: 1 1 auto;
+}

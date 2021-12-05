@@ -1,3 +1,41 @@
 .app {
-  
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.app__timeline {
+  flex: 0 0 auto;
+  height: 48px;
+}
+.app__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+}
+.app__tree {
+  flex: 0 0 auto;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  background-color: #eee;
+}
+.app__editor {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.app__right {
+  flex: 0 0 auto;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+.app__toolbox {
+  flex: 1 1 auto;
+}
+.app__props {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
 }
