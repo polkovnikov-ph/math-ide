@@ -46,7 +46,7 @@ export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
             <div className={bn('row')} style={style}>
                 {chevron}
                 {columns.map((column, index) => (
-                    <div className={bn('text')} key={index}>
+                    <div className={bn('column')} key={index}>
                         {column}
                     </div>
                 ))}
@@ -57,7 +57,6 @@ export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
         </div>
     );
 };
-
 
 const bf = bem('forest');
 

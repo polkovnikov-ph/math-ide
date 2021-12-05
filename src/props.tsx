@@ -1,37 +1,11 @@
-import React, {FC} from 'react';
-import {bem} from '@bem-modules/bem';
+import React, {FC, useMemo} from 'react';
 
 import { Title } from './pure/title';
+import { Forest } from './pure/tree';
 import { Entity, entitySchema } from './tools';
-import { Schema } from './util/schema';
-import { entries } from './util/utils';
+import { handlers } from './util/types';
 
-const b = bem('table'); // FIXME
-
-type RendererT<T> = FC<T>
-type Renderer = 'Renderer'
-declare module './util/hkt' {
-  interface Tag2Hkt<T> {
-    Renderer: RendererT<T>;
-  }
-}
-const renderer: Schema<Renderer> = {
-  number: (props) => <>{props}</>,
-  object: (types) => (props) => {
-    const result: JSX.Element[] = [];
-    for (const [key, render] of entries(types)) {
-      result.push(
-        <div className={b('row')} key={key}>
-          <div className={b('key')}>{key}</div>
-          <div className={b('value')}>{render(props[key])}</div>
-        </div>
-      );
-    }
-    return <>{result}</>;
-  },
-};
-
-const renderers = entitySchema(renderer);
+const renderers = entitySchema(handlers);
 
 const entities: Entity[] = [
     {
@@ -49,13 +23,16 @@ const selectedEntity = 0;
 
 export const Props: FC = () => {
     const e = entities[selectedEntity];
-    const Render = renderers[e.type];
-    const props = <Render {...e.fields} />;
+    const {render} = renderers[e.type];
+
+    const forest = useMemo(() => {
+      return render('', e.fields).children;
+    }, [e.fields, render]);
 
     return (
         <>
             <Title text="Entities" />
-            {props}
+            <Forest forest={forest} />
         </>
     );
 };
