@@ -5,13 +5,13 @@ import {Forest, ModelTree} from './pure/tree';
 
 const forest: ModelTree[] = [
   {
-      text: 'node_modules',
+      columns: ['node_modules'],
       children: [
           {
-              text: 'react',
+              columns: ['react'],
               children: [
                   {
-                      text: 'index.js',
+                      columns: ['index.js'],
                       children: [],
                   }
               ],
@@ -19,14 +19,14 @@ const forest: ModelTree[] = [
       ],
   },
   {
-      text: 'src',
+      columns: ['src'],
       children: [
           {
-              text: 'app.css',
+              columns: ['app.css'],
               children: [],
           },
           {
-              text: 'app.tsx',
+              columns: ['app.tsx'],
               children: [],
           },
       ],

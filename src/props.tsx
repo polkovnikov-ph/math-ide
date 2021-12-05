@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import {bem} from '@bem-modules/bem';
 
-import { Table } from './pure/table';
 import { Title } from './pure/title';
 import { Entity, entitySchema } from './tools';
 import { Schema } from './util/schema';

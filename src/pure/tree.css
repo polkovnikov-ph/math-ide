@@ -22,7 +22,7 @@
     visibility: hidden;
 }
 
-.tree-node__text {
+.tree-node__column {
     flex: 1 1 auto;
     line-height: 24px;
 }
