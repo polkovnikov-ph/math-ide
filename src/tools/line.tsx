@@ -1,4 +1,6 @@
+import React from "react";
 import { Schema } from "../util/types";
+import type {SchemaFC} from '.';
 
 export const schema = (s: Schema) => (
     s.object({
@@ -8,3 +10,9 @@ export const schema = (s: Schema) => (
         y2: s.number,
     })
 );
+
+export const Component: SchemaFC<typeof schema> = ({x1, y1, x2, y2}) => {
+    return (
+        <line x1={x1} y1={y1} x2={x2} y2={y2} />
+    );
+};

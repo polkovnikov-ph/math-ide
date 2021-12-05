@@ -2,19 +2,13 @@ import './app.css';
 
 import React, { FC } from 'react';
 import {bem} from '@bem-modules/bem';
+
 import { EntityList } from './entity-list';
-import { Props } from './props';
+import { Properties } from './properties';
+import { Editor } from './editor';
 
-const Timeline = () => {
-  return <>Timeline</>;
-};
-
-const Toolbox = () => {
-  return <>Toolbox</>;
-};
-
-const Editor = () => {
-  return <>Editor</>;
+const Stub: FC<{name: string}> = ({name}) => {
+  return <>{name}</>;
 };
 
 const b = bem('app');
@@ -23,25 +17,21 @@ export const App: FC = () => {
   return (
     <div className={b()}>
       <div className={b("timeline")}>
-        <Timeline />
+        <Stub name="Timeline" />
       </div>
       <div className={b("content")}>
         <div className={b("tree")}>
           <EntityList />
         </div>
         <div className={b("editor")}>
-          <svg width="1000" height="1000">
-            <circle cx="100" cy="100" r="50" />
-            {/* <Circle /> */}
-          </svg>
           <Editor />
         </div>
         <div className={b("right")}>
           <div className={b("toolbox")}>
-            <Toolbox />
+            <Stub name="Toolbox" />
           </div>
           <div className={b("props")}>
-            <Props />
+            <Properties />
           </div>
         </div>
       </div>
