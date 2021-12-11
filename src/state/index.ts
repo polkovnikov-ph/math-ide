@@ -3,11 +3,18 @@ import { shallowEqual, useSelector as useSelectorImpl } from "react-redux";
 import { Reducer, combineReducers } from "redux";
 import { Entity } from "../tools";
 
+export const createEntity = (entity: Entity) => ({
+    type: 'createEntity',
+    entity,
+});
+
 const entities: Reducer<Entity[]> = (state = [], action) => {
     switch (action.type) {
-        case '':
+        case 'createEntity':
+            return [...state, (action as any).entity];
+        default:
+            return state;
     }
-    return state;
 };
 
 const selectedEntity: Reducer<number | null> = (state = null, action) => {
