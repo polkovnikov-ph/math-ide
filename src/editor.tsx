@@ -1,28 +1,32 @@
 import React, {FC, useMemo, useRef} from "react";
+import { Selector } from "./selector";
 import { useSelector } from "./state";
 import { typeToCreator, typeToRender } from "./tools";
 
 export const Editor: FC = () => {
-    const { entities, selectedTool, /*selectedEntity*/ } = useSelector(({ entities, selectedTool }) => ({ entities, selectedTool }));
+    const {
+        entities,
+        selectedTool,
+        highlightedEntity,
+        // selectedEntity,
+     } = useSelector(({
+         entities, selectedTool, highlightedEntity
+    }) => ({
+        entities, selectedTool, highlightedEntity
+    }));
 
     const body = useMemo(() => (
         entities.map((entity, index) => {
             const Component = typeToRender(entity.type);
-            return <Component key={index} {...entity.fields} />;
+            const state = index === highlightedEntity ? 'highlighted' : 'normal';
+            return <Component key={index} fields={entity.fields} state={state} />;
         })
-    ), [entities]);
-
-    // const dispatch = useDispatch();
-    // dispatch(createEntity({
-    //     name: 'Line',
-    //     type: 'line',
-    //     fields: rect,
-    // }))
+    ), [entities, highlightedEntity]);
 
     const Creator = useMemo(() => {
         return selectedTool
             ? typeToCreator(selectedTool)
-            : undefined;
+            : Selector;
     }, [selectedTool]);
 
     const svgRef = useRef<SVGSVGElement>(null);
@@ -30,7 +34,7 @@ export const Editor: FC = () => {
     return (
         <svg ref={svgRef} width="1000" height="1000">
             {body}
-            {Creator ? <Creator containerRef={svgRef} /> : null}
+            {<Creator containerRef={svgRef} />}
         </svg>
     );
 };

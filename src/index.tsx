@@ -9,7 +9,8 @@ import {rootReducer, State} from './state';
 
 const initialState: State = {
   entities: [],
-  selectedEntity: 0,
+  highlightedEntity: null,
+  selectedEntity: null,
   selectedTool: null,
 };
 

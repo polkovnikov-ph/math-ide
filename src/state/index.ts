@@ -17,6 +17,20 @@ const entities: Reducer<AnyEntity[]> = (state = [], action) => {
     }
 };
 
+export const highlightEntity = (entityId: number | null) => ({
+    type: 'highlightEntity',
+    entityId,
+})
+
+const highlightedEntity: Reducer<number | null> = (state = null, action) => {
+    switch (action.type) {
+        case 'highlightEntity':
+            return action.entityId;
+        default:
+            return state;
+    }
+};
+
 const selectedEntity: Reducer<number | null> = (state = null, action) => {
     return state;
 };
@@ -37,6 +51,7 @@ const selectedTool: Reducer<null | EntityTypeName> = (state = null, action) => {
 
 export const rootReducer = combineReducers({
     entities,
+    highlightedEntity,
     selectedEntity,
     selectedTool,
 });
