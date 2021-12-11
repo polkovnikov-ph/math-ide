@@ -1,8 +1,7 @@
-import React from "react";
 import { Schema } from "../util/types";
-import type {SchemaFC} from '.';
+import { descriptor, SchemaFC } from "./common";
 
-export const schema = (s: Schema) => (
+const schema = (s: Schema) => (
     s.object({
         x1: s.number,
         y1: s.number,
@@ -11,8 +10,14 @@ export const schema = (s: Schema) => (
     })
 );
 
-export const Component: SchemaFC<typeof schema> = ({x1, y1, x2, y2}) => {
+const Line: SchemaFC<typeof schema> = ({x1, y1, x2, y2}) => {
     return (
-        <line x1={x1} y1={y1} x2={x2} y2={y2} />
+        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="black" />
     );
 };
+
+export default descriptor({
+    name: 'Line',
+    schema,
+    Component: Line,
+});

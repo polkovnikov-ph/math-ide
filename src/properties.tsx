@@ -15,7 +15,7 @@ export const Properties: FC = () => {
       return null;
     }
     
-    return typeToHandler[entity.type]
+    return typeToHandler(entity.type)
       .render('', entity.fields)
       .children;
   }, [entity]);
