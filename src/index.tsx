@@ -8,19 +8,9 @@ import {App} from './app';
 import {rootReducer, State} from './state';
 
 const initialState: State = {
-  entities: [
-    {
-        name: 'Some line',
-        type: 'line',
-        fields: {
-            x1: 100,
-            y1: 100,
-            x2: 200,
-            y2: 200,
-        },
-    },
-  ],
+  entities: [],
   selectedEntity: 0,
+  selectedTool: null,
 };
 
 const store = createStore(rootReducer, initialState);

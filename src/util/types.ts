@@ -12,6 +12,8 @@ export interface Schema {
     }) => Handler<O>;
 }
 
+export type GetType<S extends (...args: any[]) => any> = ReturnType<S> extends Handler<infer T> ? T : never
+
 export const handlers: Schema = {
     number: {
         render: (field, n) => ({

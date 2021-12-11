@@ -3,9 +3,9 @@ import { Title } from "./pure/title";
 
 import { Forest, ModelTree } from './pure/tree';
 import { useSelector } from "./state";
-import { Entity } from "./tools";
+import { AnyEntity } from "./tools";
 
-const toForest = (entities: Entity[]): ModelTree[] => (
+const toForest = (entities: AnyEntity[]): ModelTree[] => (
     entities.map((entity) => ({
         columns: [entity.name],
         children: [],

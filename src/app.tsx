@@ -6,6 +6,7 @@ import {bem} from '@bem-modules/bem';
 import { EntityList } from './entity-list';
 import { Properties } from './properties';
 import { Editor } from './editor';
+import { Toolbox } from './toolbox';
 
 const Stub: FC<{name: string}> = ({name}) => {
   return <>{name}</>;
@@ -28,7 +29,7 @@ export const App: FC = () => {
         </div>
         <div className={b("right")}>
           <div className={b("toolbox")}>
-            <Stub name="Toolbox" />
+            <Toolbox />
           </div>
           <div className={b("props")}>
             <Properties />
