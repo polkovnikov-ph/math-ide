@@ -1,7 +1,11 @@
+import './editor.css';
 import React, {FC, useMemo, useRef} from "react";
+import { bem } from "@bem-modules/bem";
 import { Selector } from "./selector";
 import { useSelector } from "./state";
 import { typeToCreator, typeToRender } from "./tools";
+
+const b = bem('editor');
 
 export const Editor: FC = () => {
     const {
@@ -35,8 +39,10 @@ export const Editor: FC = () => {
 
     const svgRef = useRef<SVGSVGElement>(null);
 
+    const isSelecting = !selectedTool;
+
     return (
-        <svg ref={svgRef} width="1000" height="1000">
+        <svg className={b({isSelecting})} ref={svgRef} width="1000" height="1000">
             {body}
             {<Creator containerRef={svgRef} />}
         </svg>

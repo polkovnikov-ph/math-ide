@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from 'react';
+import React, {FC, useCallback, useMemo} from 'react';
 
 import { Title } from './pure/title';
 import { Forest } from './pure/tree';
@@ -20,10 +20,12 @@ export const Properties: FC = () => {
       .children;
   }, [entity]);
 
+  const handleClick = useCallback(() => {}, []);
+
   return (
       <>
           <Title text="Entities" />
-          {forest ? <Forest forest={forest} /> : null}
+          {forest ? <Forest forest={forest} onClick={handleClick} /> : null}
       </>
   );
 };

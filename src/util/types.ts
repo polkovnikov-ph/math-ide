@@ -2,7 +2,7 @@ import { ModelTree } from "../pure/tree";
 import { entries } from '../util/utils';
 
 export interface Handler<T> {
-    render: (field: string, value: T) => ModelTree;
+    render: (field: string, value: T) => ModelTree<number>;
 }
 
 export interface Schema {
@@ -19,6 +19,8 @@ export const handlers: Schema = {
         render: (field, n) => ({
             columns: [field, String(n)],
             children: [],
+            isSelected: false,
+            value: 0,
         })
     },
     object: (types) => ({
@@ -27,6 +29,8 @@ export const handlers: Schema = {
             children: entries(types).map(([key, {render}]) => (
                 render(key, props[key])
             )),
+            isSelected: false,
+            value: 0,
         })
     }),
 };

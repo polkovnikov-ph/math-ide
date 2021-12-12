@@ -1,0 +1,6 @@
+.editor {
+    cursor: crosshair;
+}
+.editor._is-selecting {
+    cursor: default;
+}

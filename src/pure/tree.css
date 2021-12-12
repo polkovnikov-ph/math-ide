@@ -1,6 +1,9 @@
 .tree-node {
     flex: 1 1 auto;
 }
+.tree-node._is-selected {
+    background-color: #ffffff;
+}
 
 .tree-node__row {
     height: 24px;

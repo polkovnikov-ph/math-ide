@@ -1,25 +1,35 @@
 import './tree.css';
 
-import React, {FC, ReactElement, useCallback, useState} from 'react';
+import React, {FC, MouseEventHandler, ReactElement, useCallback, useState} from 'react';
 import {bem} from '@bem-modules/bem';
 
 const ROW_HEIGHT = 24;
 
-export type ModelTree = {
+export type ModelTree<T> = {
     columns: (ReactElement | string)[];
-    children: ModelTree[];
+    children: ModelTree<T>[];
+    isSelected: boolean;
+    value: T;
 };
 
 const bn = bem('tree-node');
 
-type TreeNodeProps = ModelTree & {
+type TreeNodeProps<T> = ModelTree<T> & {
     depth: number;
+    onClick: (entityId: T) => void;
 };
 
-export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
+export const TreeNode = <T,>({isSelected, columns, children, value, onClick, depth}: TreeNodeProps<T>) => {
     const [isOpen, setIsOpen] = useState(true);
 
-    const handleToggleOpen = useCallback(() => setIsOpen(wasOpen => !wasOpen), []);
+    const handleToggleOpen = useCallback<MouseEventHandler>((e) => {
+        e.stopPropagation();
+        setIsOpen(wasOpen => !wasOpen);
+    }, []);
+
+    const handleClick = useCallback(() => {
+        onClick(value);
+    }, []);
 
     const icon = children.length === 0
         ? `M 50 50m -30 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0` // circle
@@ -27,7 +37,7 @@ export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
 
     const chevron = (
         <svg
-            className={bn('chevron', {isOpen})} 
+            className={bn('chevron', {isOpen})}
             onClick={handleToggleOpen}
             width="10"
             height="10"
@@ -42,8 +52,8 @@ export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
     };
 
     return (
-        <div className={bn()}>
-            <div className={bn('row')} style={style}>
+        <div className={bn({isSelected})}>
+            <div className={bn('row')} style={style} onClick={handleClick}>
                 {chevron}
                 {columns.map((column, index) => (
                     <div className={bn('column')} key={index}>
@@ -52,7 +62,11 @@ export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
                 ))}
             </div>
             <div className={bn('children', {isClosed: !isOpen})}>
-                <Forest forest={children} depth={depth + 1} />
+                <Forest
+                    forest={children}
+                    onClick={onClick}
+                    depth={depth + 1}
+                />
             </div>
         </div>
     );
@@ -60,18 +74,20 @@ export const TreeNode: FC<TreeNodeProps> = ({columns, children, depth}) => {
 
 const bf = bem('forest');
 
-type ForestProps = {
-    forest: ModelTree[];
+type ForestProps<T> = {
+    forest: ModelTree<T>[];
     depth?: number;
+    onClick: (entityId: T) => void;
 }
 
-export const Forest: FC<ForestProps> = ({forest, depth = 0}) => {
+export const Forest = <T,>({forest, onClick, depth = 0}: ForestProps<T>) => {
     return (
         <div className={bf()}>
             {forest.map((tree, index) => (
-                <TreeNode
+                <TreeNode<T>
                     key={index} 
                     {...tree}
+                    onClick={onClick}
                     depth={depth}
                 />
             ))}
