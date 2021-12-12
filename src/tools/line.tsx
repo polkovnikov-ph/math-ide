@@ -16,7 +16,8 @@ const schema = (s: Schema) => (
 type Fields = GetType<typeof schema>
 
 const Line: FC<{
-    fields: Fields, state: RenderState
+    fields: Fields,
+    state: RenderState,
 }> = ({
     fields: {x1, y1, x2, y2}, 
     state = 'normal',

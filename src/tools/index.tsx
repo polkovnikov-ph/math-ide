@@ -32,7 +32,8 @@ export const typeToCreator = <K extends EntityTypeName>(type: K) => {
                 type,
                 name: type,
                 fields,
-            }))
+            }));
+            // dispatch(selectEntity(???))
         }, [dispatch]);
         return <Creator containerRef={containerRef} onCreateEntity={handleCreateEntity} />;
     };

@@ -29,11 +29,9 @@ export const Selector: FC<{containerRef: RefObject<SVGSVGElement>}> = ({containe
 
     const handleHover = useCallback((e: MouseEvent) => {
         const [x, y] = getCoord(e);
-        const {entities, highlightedEntity} = store.getState();
+        const {entities} = store.getState();
         const newHighlightedEntity = getClosestEntity(entities, x, y);
-        if (newHighlightedEntity !== highlightedEntity) {
-            dispatch(highlightEntity(newHighlightedEntity));
-        }
+        dispatch(highlightEntity(newHighlightedEntity));
     }, [dispatch, getCoord, store]);
 
     const handleClick = useCallback((e: MouseEvent) => {
@@ -41,7 +39,7 @@ export const Selector: FC<{containerRef: RefObject<SVGSVGElement>}> = ({containe
         const {entities} = store.getState();
         const newSelectedEntity = getClosestEntity(entities, x, y);
         dispatch(selectEntity(newSelectedEntity));
-    }, []);
+    }, [dispatch, getCoord, store]);
 
     useEffect(() => {
         if (!containerRef.current) {
