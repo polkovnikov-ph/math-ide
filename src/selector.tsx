@@ -1,6 +1,6 @@
-import React, { FC, RefObject, useCallback, useEffect } from "react";
+import { FC, RefObject, useCallback, useEffect } from "react";
 import { useDispatch, useStore } from "react-redux";
-import { highlightEntity, State } from "./state";
+import { highlightEntity, selectEntity, State } from "./state";
 import { AnyEntity, entityTypes } from "./tools";
 import { useToClientCoord } from "./util/use-to-client-coord";
 
@@ -36,8 +36,11 @@ export const Selector: FC<{containerRef: RefObject<SVGSVGElement>}> = ({containe
         }
     }, [dispatch, getCoord, store]);
 
-    const handleClick = useCallback(() => {
-        // TODO
+    const handleClick = useCallback((e: MouseEvent) => {
+        const [x, y] = getCoord(e);
+        const {entities} = store.getState();
+        const newSelectedEntity = getClosestEntity(entities, x, y);
+        dispatch(selectEntity(newSelectedEntity));
     }, []);
 
     useEffect(() => {

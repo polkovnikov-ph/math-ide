@@ -22,8 +22,17 @@ const Line: FC<{
     state = 'normal',
 }) => {
     const stroke = state === 'highlighted' ? 'blue' : 'black';
+    const knobs = state === 'selected' ? (
+        <>
+            <Knob x={x1} y={y1} />
+            <Knob x={x2} y={y2} />
+        </>
+    ) : null;
     return (
-        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={stroke} />
+        <>
+            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={stroke} />
+            {knobs}
+        </>
     );
 };
 

@@ -8,20 +8,24 @@ export const Editor: FC = () => {
         entities,
         selectedTool,
         highlightedEntity,
-        // selectedEntity,
+        selectedEntity,
      } = useSelector(({
-         entities, selectedTool, highlightedEntity
+        entities, selectedTool, highlightedEntity, selectedEntity,
     }) => ({
-        entities, selectedTool, highlightedEntity
+        entities, selectedTool, highlightedEntity, selectedEntity,
     }));
 
     const body = useMemo(() => (
         entities.map((entity, index) => {
             const Component = typeToRender(entity.type);
-            const state = index === highlightedEntity ? 'highlighted' : 'normal';
+            const state = index === selectedEntity
+                ? 'selected'
+                : index === highlightedEntity
+                ? 'highlighted'
+                : 'normal';
             return <Component key={index} fields={entity.fields} state={state} />;
         })
-    ), [entities, highlightedEntity]);
+    ), [entities, highlightedEntity, selectedEntity]);
 
     const Creator = useMemo(() => {
         return selectedTool

@@ -31,8 +31,18 @@ const highlightedEntity: Reducer<number | null> = (state = null, action) => {
     }
 };
 
+export const selectEntity = (entityId: number | null) => ({
+    type: 'selectEntity',
+    entityId,
+})
+
 const selectedEntity: Reducer<number | null> = (state = null, action) => {
-    return state;
+    switch (action.type) {
+        case 'selectEntity':
+            return action.entityId;
+        default:
+            return state;
+    }
 };
 
 export const setSelectedTool = (tool: null | EntityTypeName) => ({
